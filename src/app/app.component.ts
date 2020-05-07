@@ -6,7 +6,10 @@ import {DatePipe} from '@angular/common';
 import {ImageFormatterComponent} from './image-formatter/image-formatter.component';
 import {LinkFormatterComponent} from './link-formatter/link-formatter.component';
 import {ToolPanelComponent} from './tool-panel/tool-panel.component';
-import { AllCommunityModules } from '@ag-grid-community/all-modules';
+import {HeaderComponent} from './header/header.component';
+import {CheckboxComponent} from './checkbox/checkbox.component';
+import {AllModules} from '@ag-grid-enterprise/all-modules';
+import {ColumnApi, GridApi} from 'ag-grid-community';
 
 @Component({
   selector: 'app-root',
@@ -20,14 +23,25 @@ export class AppComponent implements OnInit {
   ) {
 
   }
-  public modules = AllCommunityModules;
+
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+
+  public modules = AllModules;
 
   columnDefs = [
+    {
+      colId: 'checkbox',
+      headerName: '',
+      cellRendererFramework: CheckboxComponent,
+      headerComponentParams : {
+        showHeaderCheckbox: true,
+      }
+    },
     {
       colId: '1',
       headerName: '',
       cellRendererFramework: ImageFormatterComponent,
-      checkboxSelection: true,
     },
     {headerName: 'Published on', field: 'publishedAt'},
     {headerName: 'Video Title', cellRendererFramework: LinkFormatterComponent},
@@ -38,7 +52,10 @@ export class AppComponent implements OnInit {
   sideBar;
   frameworkComponents;
   icons;
+  context;
+
   ngOnInit(): void {
+    this.context = { componentParent: this };
     this.icons = {
       'custom-stats': '<span class="ag-icon ag-icon-custom-stats"></span>',
     };
@@ -54,7 +71,10 @@ export class AppComponent implements OnInit {
       defaultToolPanel: 'customStats',
     };
 
-    this.frameworkComponents = { toolPanelComponent: ToolPanelComponent };
+    this.frameworkComponents = {
+      toolPanelComponent: ToolPanelComponent,
+      agColumnHeader: HeaderComponent,
+    };
 
     this.defaultColDef = {
       flex: 1,
@@ -77,5 +97,22 @@ export class AppComponent implements OnInit {
         });
       })
     );
+  }
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+  }
+
+  setSelected(cell, value) {
+    cell.setSelected(value);
+  }
+
+  setAllSelected(value) {
+    value ? this.gridApi.selectAll() : this.gridApi.deselectAll();
+  }
+
+  hideColumn(value) {
+    this.gridColumnApi.hideColumn('checkbox', value);
   }
 }

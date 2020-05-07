@@ -21,20 +21,6 @@ export class ToolPanelComponent {
     if (!this.showCheckbox) {
       this.params.api.deselectAll();
     }
-    this.params.api.setColumnDefs([
-      {
-        colId: '1',
-        headerName: '',
-        cellRendererFramework: ImageFormatterComponent,
-        checkboxSelection: this.showCheckbox,
-      },
-      {headerName: 'Published on', field: 'publishedAt'},
-      {headerName: 'Video Title', cellRendererFramework: LinkFormatterComponent},
-      {headerName: 'Description', field: 'description'}
-    ]);
-
-    console.log(this.params.api.getDisplayedRowCount());
-    console.log(this.params.api.getSelectedRows().length);
-    console.log(this.showCheckbox);
+    this.params.columnApi.setColumnVisible('checkbox', this.showCheckbox);
   }
 }
