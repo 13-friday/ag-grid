@@ -1,7 +1,14 @@
 <ag-grid-angular
+  [icons]="icons"
+  [modules]="modules"
+  rowSelection="multiple"
+  [sideBar]="sideBar"
+  [frameworkComponents]="frameworkComponents"
+  [suppressRowClickSelection]="true"
   style="width: 100%; height: 500px;"
   class="ag-theme-alpine"
   [rowData]="rowData | async"
   [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
 >
 </ag-grid-angular>

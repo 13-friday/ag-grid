@@ -9,7 +9,6 @@ export class LinkFormatterComponent {
   params: any;
 
   agInit(params: any) {
-    console.log(params);
     this.params = params;
   }
 }

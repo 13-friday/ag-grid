@@ -1,0 +1,9 @@
+<h2 style="text-align: center">Toolbar</h2>
+<div>
+  <button
+    (click)="changeSelectionMode()">
+    {{showCheckbox ? 'Hide checkbox' : 'Show checkbox'}}
+  </button>
+</div>
+<p>Total: {{this.params.api.getDisplayedRowCount()}}</p>
+<p>Selected: {{this.params.api.getSelectedRows().length}}</p>
