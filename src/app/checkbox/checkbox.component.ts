@@ -13,7 +13,7 @@ export class CheckboxComponent {
   }
 
   select({target}) {
-    this.params.context.componentParent.setSelected(this.params.node, target.checked);
+    this.params.node.setSelected(target.checked);
   }
 
   refresh(): boolean {

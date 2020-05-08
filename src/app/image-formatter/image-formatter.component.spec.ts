@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ImageFormatterComponent } from './image-formatter.component';
+import {ImageFormatterComponent} from './image-formatter.component';
 
 describe('ImageFormatterComponent', () => {
   let component: ImageFormatterComponent;
@@ -17,9 +17,5 @@ describe('ImageFormatterComponent', () => {
     fixture = TestBed.createComponent(ImageFormatterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

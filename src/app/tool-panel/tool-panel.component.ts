@@ -1,7 +1,4 @@
 import {Component} from '@angular/core';
-import {IToolPanelParams} from 'ag-grid-community';
-import {ImageFormatterComponent} from '../image-formatter/image-formatter.component';
-import {LinkFormatterComponent} from '../link-formatter/link-formatter.component';
 
 @Component({
   selector: 'app-tool-panel',
@@ -9,10 +6,10 @@ import {LinkFormatterComponent} from '../link-formatter/link-formatter.component
   styleUrls: ['./tool-panel.component.scss']
 })
 export class ToolPanelComponent {
-  public params: IToolPanelParams;
+  public params;
   showCheckbox = true;
 
-  agInit(params: IToolPanelParams): void {
+  agInit(params): void {
     this.params = params;
   }
 

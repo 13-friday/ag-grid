@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ToolPanelComponent } from './tool-panel.component';
+import {ToolPanelComponent} from './tool-panel.component';
 
 describe('ToolPanelComponent', () => {
   let component: ToolPanelComponent;
@@ -17,9 +17,5 @@ describe('ToolPanelComponent', () => {
     fixture = TestBed.createComponent(ToolPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

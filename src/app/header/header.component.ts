@@ -1,5 +1,4 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {GridApi} from 'ag-grid-community';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +6,11 @@ import {GridApi} from 'ag-grid-community';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  private params: any;
+  public params: any;
 
-  private ascSort: string;
-  private descSort: string;
-  private noSort: string;
-
-  public selectAll: boolean;
+  public ascSort: string;
+  public descSort: string;
+  public noSort: string;
 
   @ViewChild('menuButton', {read: ElementRef}) public menuButton;
 
@@ -47,6 +44,6 @@ export class HeaderComponent {
   }
 
   select({target}) {
-    this.params.context.componentParent.setAllSelected(target.checked);
+    target.checked ? this.params.api.selectAll() : this.params.api.deselectAll();
   }
 }
