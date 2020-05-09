@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from './services/app.service';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {ImageFormatterComponent} from './image-formatter/image-formatter.component';
 import {LinkFormatterComponent} from './link-formatter/link-formatter.component';
 import {ToolPanelComponent} from './tool-panel/tool-panel.component';
@@ -9,6 +9,9 @@ import {CheckboxComponent} from './checkbox/checkbox.component';
 import {ColumnApi, GridApi} from '@ag-grid-community/core';
 import {YoutubeRecordItem} from './interfaces/youtube-record-item';
 import {ClientSideRowModelModule} from '@ag-grid-community/client-side-row-model';
+import {MenuModule} from '@ag-grid-enterprise/menu';
+import {ClipboardModule} from '@ag-grid-enterprise/clipboard';
+import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +24,8 @@ export class AppComponent implements OnInit {
   ) {
 
   }
-  modules = [ClientSideRowModelModule];
+
+  modules = [ClientSideRowModelModule, MenuModule, ClipboardModule];
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
 
@@ -51,6 +55,7 @@ export class AppComponent implements OnInit {
   sideBar;
   frameworkComponents;
   context;
+  errorLoading;
 
   ngOnInit(): void {
     this.context = {componentParent: this};
@@ -74,7 +79,12 @@ export class AppComponent implements OnInit {
     this.defaultColDef = {
       flex: 1,
     };
-    this.youtubeRecords = this.service.getYoutubeRecords();
+    this.youtubeRecords = this.service.getYoutubeRecords().pipe(
+      catchError(({error}) => {
+        this.errorLoading = error.error;
+        return of(null);
+      })
+    );
   }
 
   onGridReady(params) {
